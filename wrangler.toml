@@ -1,14 +1,14 @@
-name = "shell-command-web"
+name = "your-project-name"
 type = "javascript"
 
+[build]
+  command = "npm run build"
+  publish = "public"
+
+[build.environment]
+  NODE_VERSION = "14"
+
 [site]
-bucket = "./public"
-entry-point = "workers-site"
-
-[[plugins]]
-name = "esbuild"
-
-[[env.production]]
-workers_dev = false
-zone_id = "your-zone-id"
-route = "erlandi.my.id/*"
+  bucket = "./public"
+  entry-point = "index.html"
+  error-page = "404.html"

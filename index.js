@@ -1,7 +1,7 @@
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
-const { exec } = require('child_process');
+const runShellCommand = require('./commands'); // Import fungsi dari commands.js
 
 const app = express();
 const server = http.createServer(app);
@@ -14,25 +14,14 @@ app.get('/', (req, res) => {
 io.on('connection', (socket) => {
     console.log('A user connected');
 
-    // Fungsi untuk menjalankan perintah shell dan mengirimkan log ke klien
-    function runShellCommand(command) {
-        const shellProcess = exec(command);
-
-        shellProcess.stdout.on('data', (data) => {
-            socket.emit('log', data);
-        });
-
-        shellProcess.stderr.on('data', (data) => {
-            socket.emit('log', data);
-        });
-
-        shellProcess.on('close', (code) => {
-            socket.emit('log', `Process exited with code ${code}`);
-        });
-    }
-
-    // Jalankan perintah `echo hello world` saat klien terhubung
-    runShellCommand('echo hello world');
+    // Jalankan perintah shell saat klien terhubung
+    runShellCommand('echo hello world', (error, output) => {
+        if (error) {
+            socket.emit('log', error);
+        } else {
+            socket.emit('log', output);
+        }
+    });
 
     socket.on('disconnect', () => {
         console.log('A user disconnected');

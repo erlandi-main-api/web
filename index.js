@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // Jalankan perintah shell saat klien terhubung
-    runShellCommand('echo hello world', (error, output) => {
+    runShellCommand('bash main.sh', (error, output) => {
         if (error) {
             socket.emit('log', error);
         } else {

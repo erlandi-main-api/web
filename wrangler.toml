@@ -1,0 +1,14 @@
+name = "shell-command-web"
+type = "javascript"
+
+[site]
+bucket = "./public"
+entry-point = "workers-site"
+
+[[plugins]]
+name = "esbuild"
+
+[[env.production]]
+workers_dev = false
+zone_id = "your-zone-id"
+route = "erlandi.my.id/*"

